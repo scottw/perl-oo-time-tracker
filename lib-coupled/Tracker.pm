@@ -18,8 +18,7 @@ sub new {
 }
 
 sub log_file {
-    my $self = shift;
-    my $log_file = shift;
+    my ($self, $log_file) = @_;
 
     if (defined $log_file) {
         $self->{log_file} = $log_file;
