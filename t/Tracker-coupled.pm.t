@@ -2,26 +2,15 @@
 use strict;
 use warnings;
 use Test::More;
-use Data::Dumper;
+
+use Timer;
 
 use_ok 'Tracker';
 
-{
-    package LedgerMemory;
-    use strict;
-    use warnings;
-    sub new { bless { ledger => [] } => shift }
-    sub ledger { shift->{ledger} }
-    sub append { push @{shift->ledger}, @_ }
-    sub scan {
-        my ($self, $sub) = @_;
-        $sub->($_) for @{$self->ledger}
-    }
-}
+my $tracker;
 
-package main;
-
-my $tracker = Tracker->new(ledger => LedgerMemory->new);
+$tracker = Tracker->new(log_file => 'log.txt');
+unlink $tracker->log_file;
 
 my $time = time;
 

@@ -1,17 +1,15 @@
 package Tracker;
 use Moo;
 use strictures 2;
-use Types::Standard qw/Int Str/;
+use Types::Standard qw/Int Object/;
 use Timer;
 
-has log_file => (is => 'ro', isa => Str, required => 1);
+has ledger => (is => 'ro', isa => Object, required => 1);
 
 sub append_event {
     my ($self, $timer) = @_;
 
-    open my $log, ">>", $self->log_file or die "Could not open '" . $self->log_file . "': $!\n";
-    print $log $timer->to_csv . "\n";
-    close $log;
+    $self->ledger->append($timer->to_csv);
 }
 
 sub summary {
@@ -21,17 +19,17 @@ sub summary {
 
     my %summary = ();
 
-    open my $log, '<', $self->log_file or die "Could not open '" . $self->log_file . "': $!\n";
-    while (my $entry = <$log>) {
-        chomp $entry;
-        my %rec = ();
-        @rec{qw/start stop activity/} = split /,/ => $entry;
-        my $timer = Timer->new(%rec);
+    $self->ledger->scan(
+        sub {
+            my $entry = shift;
+            my %rec  = ();
+            @rec{qw/start stop activity/} = split /,/ => $entry;
+            my $timer = Timer->new(%rec);
 
-        $summary{$timer->activity} ||= 0;
-        $summary{$timer->activity} += $timer->duration;
-    }
-    close $log;
+            $summary{$timer->activity} ||= 0;
+            $summary{$timer->activity} += $timer->duration;
+        }
+    );
 
     return \%summary;
 }

@@ -1,8 +1,14 @@
-test-classic:
-	carton exec -- prove -Ilib-classic -v t
+test-coupled: LIB=lib-coupled
+test-coupled: TESTS=t/Timer.pm.t t/Tracker-coupled.pm.t
 
-test-modern:
-	carton exec -- prove -Ilib-modern -v t
+test-classic: LIB=lib-classic
+test-classic: TESTS=t/Timer.pm.t t/Tracker.pm.t
+
+test-modern: LIB=lib-modern
+test-modern: TESTS=t/Timer.pm.t t/Tracker.pm.t
+
+test-%:
+	carton exec -- prove -I$(LIB) -v $(TESTS)
 
 clean:
 	rm -f log.txt

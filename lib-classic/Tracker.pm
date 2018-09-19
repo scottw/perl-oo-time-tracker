@@ -3,8 +3,6 @@ use strict;
 use warnings;
 use Timer;
 
-my $log_file = 'log.txt';
-
 sub new {
     my $class = shift;
     my $self  = {};
@@ -12,28 +10,25 @@ sub new {
 
     bless $self => $class;
 
-    $self->log_file($args{log_file});
+    $self->ledger($args{ledger});  ## something that 'does' ledger-ing
 
     $self;
 }
 
-sub log_file {
-    my $self = shift;
-    my $log_file = shift;
+sub ledger {
+    my ($self, $ledger) = @_;
 
-    if (defined $log_file) {
-        $self->{log_file} = $log_file;
+    if (defined $ledger) {
+        $self->{ledger} = $ledger;
     }
 
-    return $self->{log_file};
+    $self->{ledger};
 }
 
 sub append_event {
     my ($self, $timer) = @_;
 
-    open my $log, ">>", $self->log_file or die "Could not open '" . $self->log_file . "': $!\n";
-    print $log $timer->to_csv . "\n";
-    close $log;
+    $self->ledger->append($timer->to_csv);
 }
 
 sub summary {
@@ -43,17 +38,17 @@ sub summary {
 
     my %summary = ();
 
-    open my $log, '<', $self->log_file or die "Could not open '" . $self->log_file . "': $!\n";
-    while (my $entry = <$log>) {
-        chomp $entry;
-        my %rec = ();
-        @rec{qw/start stop activity/} = split /,/ => $entry;
-        my $timer = Timer->new(%rec);
+    $self->ledger->scan(
+        sub {
+            my $entry = shift;
+            my %rec  = ();
+            @rec{qw/start stop activity/} = split /,/ => $entry;
+            my $timer = Timer->new(%rec);
 
-        $summary{$timer->activity} ||= 0;
-        $summary{$timer->activity} += $timer->duration;
-    }
-    close $log;
+            $summary{$timer->activity} ||= 0;
+            $summary{$timer->activity} += $timer->duration;
+        }
+    );
 
     return \%summary;
 }
