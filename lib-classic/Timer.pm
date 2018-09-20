@@ -19,8 +19,7 @@ sub new {
 }
 
 sub start {
-    my $self = shift;
-    my $start = shift;
+    my ($self, $start) = @_;
 
     if (defined $start) {
         die "Type error: integer expecte for 'start' value\n"
@@ -33,8 +32,7 @@ sub start {
 }
 
 sub stop {
-    my $self = shift;
-    my $stop = shift;
+    my ($self, $stop) = @_;
 
     if (defined $stop) {
         $self->{stop} = $stop;
@@ -47,8 +45,7 @@ sub stop {
 }
 
 sub duration {
-    my $self = shift;
-    my $duration = shift;
+    my ($self, $duration) = @_;
 
     if (defined $duration) {
         $self->{duration} = $duration;
@@ -58,8 +55,7 @@ sub duration {
 }
 
 sub activity {
-    my $self = shift;
-    my $activity = shift;
+    my ($self, $activity) = @_;
 
     if (defined $activity) {
         $self->{activity} = $activity;
@@ -70,6 +66,7 @@ sub activity {
 
 sub to_csv {
     my $self = shift;
+
     join ',' => $self->start, $self->stop, $self->activity;
 }
 
