@@ -13,8 +13,8 @@ has stop => (
     },
     default => sub { time }
 );
-has duration => (is => 'rwp', isa => Int, default => 0);
-has activity => (is => 'rw', isa => Str, default => '');
+has activity => (is => 'rw', isa => Str, default => sub { '' });
+has duration => (is => 'rwp', isa => Int, default => sub { 0 });
 
 sub to_csv {
     my $self = shift;
