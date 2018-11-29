@@ -2,7 +2,7 @@ package Role::Serializable::CSV;
 use Moo::Role;
 use strictures 2;
 
-requires 'pack', 'unpack';
+with 'Role::Serializable';
 
 sub freeze {
     my $self = shift;

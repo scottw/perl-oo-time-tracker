@@ -1,11 +1,30 @@
 package Ledger::File;
-use strictures 2;
-use Types::Standard qw(Str);
+use strict;
+use warnings;
 
-use Moo;
-use namespace::clean;
+sub new {
+    my $class = shift;
+    my $self  = {};
+    my %args  = @_;
 
-has ledger_file => (is => 'ro', isa => Str, required => 1);
+    bless $self => $class;
+
+    die "Required attribute 'ledger_file' missing\n" unless $args{ledger_file};
+
+    $self->ledger_file($args{ledger_file});
+
+    $self;
+}
+
+sub ledger_file {
+    my ($self, $ledger_file) = @_;
+
+    if (defined $ledger_file) {
+        $self->{ledger_file} = $ledger_file;
+    }
+
+    $self->{ledger_file};
+}
 
 sub append {
     my ($self, $string) = @_;

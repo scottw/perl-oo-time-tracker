@@ -18,16 +18,9 @@ has stop => (
 has activity => (is => 'rw',  isa => Str, default => sub {''});
 has duration => (is => 'rwp', isa => Int, default => sub {0});
 
-sub pack {
+sub to_csv {
     my $self = shift;
-    scalar {map { $_ => $self->$_ } qw/start stop activity/};
+    join ',' => $self->start, $self->stop, $self->activity;
 }
-
-sub unpack {
-    my ($class, $args) = @_;
-    $class->new(%$args);
-}
-
-with 'Role::Serializable::CSV';
 
 1;

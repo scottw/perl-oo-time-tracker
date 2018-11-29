@@ -1,0 +1,1 @@
+This has a deliberate bug in the `stop` method to illustrate private accessors.

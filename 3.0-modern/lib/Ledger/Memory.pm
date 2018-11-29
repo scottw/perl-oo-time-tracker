@@ -5,17 +5,15 @@ use Types::Standard qw(ArrayRef);
 use Moo;
 use namespace::clean;
 
-with 'Role::Ledger';
-
-has ledger => (is => 'ro', isa => ArrayRef, default => sub { [] });
+has _ledger => (is => 'ro', isa => ArrayRef, default => sub { [] });
 
 sub append {
-    push @{shift->ledger}, @_;
+    push @{shift->_ledger}, @_;
 }
 
 sub scan {
     my ($self, $sub) = @_;
-    $sub->($_) for @{$self->ledger};
+    $sub->($_) for @{$self->_ledger};
 }
 
 1;

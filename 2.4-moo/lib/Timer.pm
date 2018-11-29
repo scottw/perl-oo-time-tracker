@@ -1,17 +1,29 @@
 package Timer;
 use strictures 2;
-use Types::Standard qw/Int/;
+use Scalar::Util 'looks_like_number';
 
 use Moo;
 use namespace::clean;
 
 sub BUILD {
     my ($self, $args) = @_;
+    $self->start(defined $args->{start} ? $args->{start} : time);
     $self->activity(defined $args->{activity} ? $args->{activity} : '');
     $self->stop(defined $args->{stop} ? $args->{stop} : time);
 }
 
-has start => (is => 'rw', isa => Int, default => sub {time});
+sub start {
+    my ($self, $start) = @_;
+
+    if (defined $start) {
+        die "Type error: integer expected for 'start' value\n"
+          unless looks_like_number($start);
+
+        $self->{start} = $start;
+    }
+
+    $self->{start};
+}
 
 sub stop {
     my ($self, $stop) = @_;

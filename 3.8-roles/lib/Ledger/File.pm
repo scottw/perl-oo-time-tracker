@@ -5,8 +5,6 @@ use Types::Standard qw(Str);
 use Moo;
 use namespace::clean;
 
-with 'Role::Ledger';
-
 has ledger_file => (is => 'ro', isa => Str, required => 1);
 
 sub append {

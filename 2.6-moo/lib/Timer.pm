@@ -1,17 +1,18 @@
 package Timer;
 use strictures 2;
-use Types::Standard qw/Int/;
+use Types::Standard qw/Int Str/;
 
 use Moo;
 use namespace::clean;
 
 sub BUILD {
     my ($self, $args) = @_;
-    $self->activity(defined $args->{activity} ? $args->{activity} : '');
     $self->stop(defined $args->{stop} ? $args->{stop} : time);
 }
 
-has start => (is => 'rw', isa => Int, default => sub {time});
+has start    => (is => 'rw',  isa => Int, default => sub {time});
+has activity => (is => 'rw',  isa => Str, default => sub {''});
+has duration => (is => 'rwp', isa => Int, default => sub {0});
 
 sub stop {
     my ($self, $stop) = @_;
@@ -24,26 +25,6 @@ sub stop {
     }
 
     return $self->{stop};
-}
-
-sub duration {
-    my ($self, $duration) = @_;
-
-    if (defined $duration) {
-        $self->{duration} = $duration;
-    }
-
-    $self->{duration};
-}
-
-sub activity {
-    my ($self, $activity) = @_;
-
-    if (defined $activity) {
-        $self->{activity} = $activity;
-    }
-
-    $self->{activity};
 }
 
 sub to_csv {

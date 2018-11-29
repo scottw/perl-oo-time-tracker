@@ -1,12 +1,11 @@
 package Tracker;
 use strictures 2;
 use Timer;
-use Types::Standard qw(Object);
 
 use Moo;
 use namespace::clean;
 
-has ledger => (is => 'ro', isa => Object, required => 1);
+has ledger => (is => 'ro', does => 'Role::Ledger', required => 1);
 
 sub append_event {
     my ($self, $timer) = @_;
