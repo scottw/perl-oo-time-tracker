@@ -10,7 +10,7 @@ sub new {
 
     bless $self => $class;
 
-    $self->ledger($args{ledger});  ## something that 'does' ledger-ing
+    $self->ledger($args{ledger});
 
     $self;
 }

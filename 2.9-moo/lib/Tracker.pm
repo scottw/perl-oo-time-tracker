@@ -1,29 +1,12 @@
 package Tracker;
-use strict;
-use warnings;
+use strictures 2;
 use Timer;
+use Types::Standard qw(Object);
 
-sub new {
-    my $class = shift;
-    my $self  = {};
-    my %args  = @_;
+use Moo;
+use namespace::clean;
 
-    bless $self => $class;
-
-    $self->ledger($args{ledger});
-
-    $self;
-}
-
-sub ledger {
-    my ($self, $ledger) = @_;
-
-    if (defined $ledger) {
-        $self->{ledger} = $ledger;
-    }
-
-    $self->{ledger};
-}
+has ledger => (is => 'ro', isa => Object, required => 1);
 
 sub append_event {
     my ($self, $timer) = @_;
