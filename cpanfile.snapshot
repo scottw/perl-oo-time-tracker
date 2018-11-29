@@ -43,17 +43,6 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Class-XSAccessor-1.19
-    pathname: S/SM/SMUELLER/Class-XSAccessor-1.19.tar.gz
-    provides:
-      Class::XSAccessor 1.19
-      Class::XSAccessor::Array 1.19
-    requirements:
-      ExtUtils::MakeMaker 0
-      Test::More 0
-      Time::HiRes 0
-      XSLoader 0
-      perl 5.008
   Devel-GlobalDestruction-0.14
     pathname: H/HA/HAARG/Devel-GlobalDestruction-0.14.tar.gz
     provides:
