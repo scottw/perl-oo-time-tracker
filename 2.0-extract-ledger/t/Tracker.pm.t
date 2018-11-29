@@ -4,10 +4,14 @@ use warnings;
 use Test::More;
 
 use Timer;
+#use Ledger::File;
 use Ledger::Memory;
 
 use_ok 'Tracker';
 
+# unlink 'ledger.txt';
+# my $ledger = Ledger::File->new(ledger_file => 'ledger.txt');
+# my $tracker = Tracker->new(ledger => $ledger);
 my $tracker = Tracker->new(ledger => Ledger::Memory->new);
 
 my $time = time;
