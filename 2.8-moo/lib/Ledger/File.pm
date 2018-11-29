@@ -29,7 +29,8 @@ sub ledger_file {
 sub append {
     my ($self, $string) = @_;
 
-    open my $fh, ">>", $self->ledger_file or die "Unable to open '" . $self->ledger_file . "' for append: $!\n";
+    open my $fh, ">>", $self->ledger_file
+      or die "Unable to open '" . $self->ledger_file . "' for append: $!\n";
     chomp $string;
     print $fh $string . "\n";
 
@@ -39,7 +40,8 @@ sub append {
 sub scan {
     my ($self, $sub) = @_;
 
-    open my $fh, "<", $self->ledger_file or die "Unable to open '" . $self->ledger_file ."' for read: $!\n";
+    open my $fh, "<", $self->ledger_file
+      or die "Unable to open '" . $self->ledger_file . "' for read: $!\n";
     while (my $line = <$fh>) {
         chomp $line;
         $sub->($line);

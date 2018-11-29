@@ -28,7 +28,8 @@ sub ledger_file {
 sub append_event {
     my ($self, $timer) = @_;
 
-    open my $log, ">>", $self->ledger_file or die "Could not open '" . $self->ledger_file . "': $!\n";
+    open my $log, ">>", $self->ledger_file
+      or die "Could not open '" . $self->ledger_file . "': $!\n";
     print $log $timer->to_csv . "\n";
     close $log;
 }
@@ -38,7 +39,8 @@ sub summary {
 
     my %summary = ();
 
-    open my $log, '<', $self->ledger_file or die "Could not open '" . $self->ledger_file . "': $!\n";
+    open my $log, '<', $self->ledger_file
+      or die "Could not open '" . $self->ledger_file . "': $!\n";
     while (my $entry = <$log>) {
         chomp $entry;
         my %rec = ();
