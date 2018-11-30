@@ -1,7 +1,7 @@
 package Role::Serializable::JSON;
+use JSON qw(encode_json decode_json);
 use Moo::Role;
 use strictures 2;
-use JSON qw(encode_json decode_json);
 
 with 'Role::Serializable';
 
