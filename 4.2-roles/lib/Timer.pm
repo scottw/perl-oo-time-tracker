@@ -28,6 +28,6 @@ sub unpack {
     $class->new(%$args);
 }
 
-with 'Role::Serializable::CSV';
+with 'Role::Serializable::JSON';
 
 1;
