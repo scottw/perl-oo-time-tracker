@@ -6,8 +6,8 @@ with 'Role::Serializable';
 
 sub freeze {
     my $self = shift;
-    my $obj  = $self->pack;
-    join ',' => map {"$_=$obj->{$_}"} sort keys %$obj;
+    my $ref  = $self->pack;
+    join ',' => map {"$_=$ref->{$_}"} sort keys %$ref;
 }
 
 sub thaw {
