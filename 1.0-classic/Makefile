@@ -10,4 +10,4 @@ test:
 	mkdir ../work
 
 next: ../work
-	rsync -aivHS ./ ../work/
+	rsync -aivHS --delete ./ ../work/
