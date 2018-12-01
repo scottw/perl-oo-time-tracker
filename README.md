@@ -11,3 +11,9 @@ The target audience for this is people who write software using classic OO techn
 ## Disclaimer
 
 This code is provided as-is. I do not recommend using it as the basis for anything other than its intended purpose to illustrate some of the differences between classic and modern object-oriented Perl. It should not be used as an illustration of good design or best OO practices. Please consult the [Moo](https://metacpan.org/pod/Moo) and [Moose](https://metacpan.org/pod/distribution/Moose/lib/Moose/Manual.pod) documentation to learn about the "right way" to do things in these systems.
+
+## Resources
+
+Slides associated with this code may be found here:
+
+https://scottw.github.io/presentations/perl-object-orientation/
