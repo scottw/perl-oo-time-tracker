@@ -55,7 +55,7 @@ tree
 
 Let's look at the Timer class first.
 
-## Timer
+### Timer
 
 [
   `work/lib/Timer.pm`
@@ -415,7 +415,7 @@ make test
 
 Isn't that nice? Moo helped us make sure that we're not modifying object attributes that we shouldn't. Because the `duration` attribute is calculated from `stop - start`, we don't want to allow people to bypass our object's business logic. But we have this convenient trigger in the `stop` method that updates `duration` as a convenience for us, so we can use the protected private setter for that.
 
-### Checkpoint 2.8: Last Attribute
+## Checkpoint 2.8: Last Attribute
 
 We have one final method to convert in the Timer class:
 
